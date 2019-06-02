@@ -1,0 +1,123 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+F:\TB工作台\开发板配套资料保存\YS-V0.3开发板配套资料\V0.3 STC89LE52基本识别程序\keil4 APP\YS-V0.3.uvproj
+Project File Date:  04/03/2012
+
+<h2>Output:</h2>
+Build target 'YS-V0.3'
+compiling LDChip.c...
+..\CODE\CONFIG.H(25): warning C318: can't open file 'LE52.H'
+..\CODE\REG_RW.H(25): error C202: 'P3': undefined identifier
+..\CODE\REG_RW.H(26): error C202: 'P3': undefined identifier
+..\CODE\REG_RW.H(27): error C202: 'P2': undefined identifier
+..\CODE\CONFIG.H(28): warning C318: can't open file 'usart.h'
+..\CODE\CONFIG.H(29): warning C318: can't open file 'LEDtest.h'
+..\CODE\LDCHIP.C(30): error C202: 'RSTB': undefined identifier
+..\CODE\LDCHIP.C(32): error C202: 'RSTB': undefined identifier
+..\CODE\LDCHIP.C(34): error C202: 'RSTB': undefined identifier
+..\CODE\LDCHIP.C(37): error C202: 'CSB': undefined identifier
+..\CODE\LDCHIP.C(39): error C202: 'CSB': undefined identifier
+..\CODE\LDCHIP.C(118): error C202: 'EX0': undefined identifier
+..\CODE\LDCHIP.C(153): error C202: 'EX0': undefined identifier
+..\CODE\LDCHIP.C(233): error C202: 'EX0': undefined identifier
+..\CODE\LDCHIP.C(263): error C202: 'EX0': undefined identifier
+compiling main.c...
+..\CODE\CONFIG.H(25): warning C318: can't open file 'LE52.H'
+..\CODE\REG_RW.H(25): error C202: 'P3': undefined identifier
+..\CODE\REG_RW.H(26): error C202: 'P3': undefined identifier
+..\CODE\REG_RW.H(27): error C202: 'P2': undefined identifier
+..\CODE\CONFIG.H(28): warning C318: can't open file 'usart.h'
+..\CODE\CONFIG.H(29): warning C318: can't open file 'LEDtest.h'
+compiling Reg_RW.c...
+..\CODE\CONFIG.H(25): warning C318: can't open file 'LE52.H'
+..\CODE\REG_RW.H(25): error C202: 'P3': undefined identifier
+..\CODE\REG_RW.H(26): error C202: 'P3': undefined identifier
+..\CODE\REG_RW.H(27): error C202: 'P2': undefined identifier
+..\CODE\CONFIG.H(28): warning C318: can't open file 'usart.h'
+..\CODE\CONFIG.H(29): warning C318: can't open file 'LEDtest.h'
+compiling LEDtest.C...
+..\user\LEDtest.C(10): warning C318: can't open file 'config.h'
+..\USER\LEDTEST.C(14): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(15): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(16): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(18): error C202: 'P2': undefined identifier
+..\USER\LEDTEST.C(19): error C202: 'P2': undefined identifier
+..\USER\LEDTEST.C(20): error C202: 'P2': undefined identifier
+..\USER\LEDTEST.C(29): error C141: syntax error near 'i', expected ')'
+..\USER\LEDTEST.C(32): error C202: 'i': undefined identifier
+..\USER\LEDTEST.C(33): error C202: 'i': undefined identifier
+..\USER\LEDTEST.C(49): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(51): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(53): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(55): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(57): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(59): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(73): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(75): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(89): error C202: 'KEY1': undefined identifier
+..\USER\LEDTEST.C(92): error C202: 'KEY1': undefined identifier
+..\USER\LEDTEST.C(93): error C202: 'LED1': undefined identifier
+..\USER\LEDTEST.C(95): error C202: 'KEY2': undefined identifier
+..\USER\LEDTEST.C(98): error C202: 'KEY2': undefined identifier
+..\USER\LEDTEST.C(99): error C202: 'LED2': undefined identifier
+..\USER\LEDTEST.C(101): error C202: 'KEY3': undefined identifier
+..\USER\LEDTEST.C(104): error C202: 'KEY3': undefined identifier
+..\USER\LEDTEST.C(105): error C202: 'LED3': undefined identifier
+..\USER\LEDTEST.C(123): error C202: 'P4': undefined identifier
+..\USER\LEDTEST.C(134): error C141: syntax error near 'Code_Val', expected ')'
+..\USER\LEDTEST.C(136): error C202: 'Code_Val': undefined identifier
+..\USER\LEDTEST.C(138): error C202: 'CODE_LSD': undefined identifier
+..\USER\LEDTEST.C(141): error C202: 'CODE_SS': undefined identifier
+..\USER\LEDTEST.C(144): error C202: 'CODE_AJCF': undefined identifier
+..\USER\LEDTEST.C(147): error C202: 'CODE_QM': undefined identifier
+compiling usart.c...
+..\user\usart.c(13): warning C318: can't open file 'config.h'
+..\USER\USART.C(24): error C202: 'SCON': undefined identifier
+..\USER\USART.C(26): error C202: 'TMOD': undefined identifier
+..\USER\USART.C(28): error C202: 'PCON': undefined identifier
+..\USER\USART.C(30): error C202: 'TH1': undefined identifier
+..\USER\USART.C(32): error C202: 'IE': undefined identifier
+..\USER\USART.C(34): error C202: 'TR1': undefined identifier
+..\USER\USART.C(35): error C202: 'ES': undefined identifier
+..\USER\USART.C(36): error C202: 'EA': undefined identifier
+..\USER\USART.C(44): error C141: syntax error near 'DAT', expected ')'
+..\USER\USART.C(46): error C202: 'ES': undefined identifier
+..\USER\USART.C(47): error C202: 'TI': undefined identifier
+..\USER\USART.C(48): error C202: 'SBUF': undefined identifier
+..\USER\USART.C(49): error C202: 'TI': undefined identifier
+..\USER\USART.C(50): error C202: 'TI': undefined identifier
+..\USER\USART.C(51): error C202: 'ES': undefined identifier
+..\USER\USART.C(60): error C141: syntax error near '*', expected ')'
+..\USER\USART.C(62): error C202: 'DAT': undefined identifier
+..\USER\USART.C(64): error C202: 'DAT': undefined identifier
+Target not created
+Build target 'YS-V0.3'
+compiling LDChip.c...
+compiling main.c...
+compiling Reg_RW.c...
+compiling LEDtest.C...
+compiling usart.c...
+linking...
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_PRINTCOM?USART
+    CALLER1: ?PR?EXTINT0HANDLER?MAIN
+    CALLER2: ?C_C51STARTUP
+Program Size: data=29.0 xdata=0 code=1975
+"YS-V0.3" - 0 Error(s), 1 Warning(s).
+Build target 'YS-V0.3'
+compiling LDChip.c...
+compiling main.c...
+compiling Reg_RW.c...
+compiling LEDtest.C...
+compiling usart.c...
+linking...
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?_PRINTCOM?USART
+    CALLER1: ?PR?EXTINT0HANDLER?MAIN
+    CALLER2: ?C_C51STARTUP
+Program Size: data=29.0 xdata=0 code=1975
+creating hex file from "..\obj\YS-V0.3"...
+"..\obj\YS-V0.3" - 0 Error(s), 1 Warning(s).

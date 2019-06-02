@@ -1,0 +1,11 @@
+Output: Simple BOM
+Type  : SimpleBOM
+From  : Variant [[No Variations]] of Project [BLACKPEARLROBOT.PrjPcb]
+   Generated File[BLACKPEARLROBOT.BOM]
+   Generated File[BLACKPEARLROBOT.CSV]
+
+
+Files Generated   : 2
+Documents Printed : 0
+
+Finished Output Generation At 15:58:21 On 2018/6/7

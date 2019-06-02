@@ -1,0 +1,238 @@
+*************************************************************
+FileName = BLACKPEARLROBOT.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Layer
+      File : BLACKPEARLROBOT.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : BLACKPEARLROBOT.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D24
+    D25
+    D26
+    D27
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : BLACKPEARLROBOT.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D26
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : BLACKPEARLROBOT.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : BLACKPEARLROBOT.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D56
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : BLACKPEARLROBOT.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+*************************************************************
+
+*************************************************************
+Generating : Bottom Paste
+      File : BLACKPEARLROBOT.GBP
+
+    Adding Layer      : Bottom Paste
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : BLACKPEARLROBOT.GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D26
+    D36
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : BLACKPEARLROBOT.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+    D26
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : BLACKPEARLROBOT.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D26
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : BLACKPEARLROBOT.GD1
+
+    Adding Drill Pair : Top Layer-Bottom Layer
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D63
+    D64
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : BLACKPEARLROBOT.GG1
+
+    Adding Drill Pair : Top Layer-Bottom Layer
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D63
+*************************************************************
+

@@ -1,0 +1,360 @@
+C51 COMPILER V9.55   MAIN                                                                  05/08/2018 07:19:32 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN ..\obj\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\code\main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\code;..\user) DEBUG OB
+                    -JECTEXTEND PRINT(.\main.lst) TABS(2) OBJECT(..\obj\main.obj)
+
+line level    source
+
+   1          /***************************飞音云电子****************************
+   2          **  工程名称：YS-V0.7语音识别模块驱动程序
+   3          **  CPU: STC11L08XE
+   4          **  晶振：22.1184MHZ
+   5          **  波特率：9600 bit/S
+   6          **  配套产品信息：YS-V0.7语音识别开发板
+   7          **                http://yuesheng001.taobao.com
+   8          **  作者：zdings
+   9          **  联系：751956552@qq.com
+  10          **  修改日期：2013.9.13
+  11          **  说明：口令模式： 即每次识别时都需要说“小杰”这个口令 ，才能够进行下一级的识别
+  12          /***************************飞音云电子******************************/
+  13          #include "config.h"
+  14          /************************************************************************************/
+  15          //  nAsrStatus 用来在main主程序中表示程序运行的状态，不是LD3320芯片内部的状态寄存器
+  16          //  LD_ASR_NONE:    表示没有在作ASR识别
+  17          //  LD_ASR_RUNING：   表示LD3320正在作ASR识别中
+  18          //  LD_ASR_FOUNDOK:   表示一次识别流程结束后，有一个识别结果
+  19          //  LD_ASR_FOUNDZERO: 表示一次识别流程结束后，没有识别结果
+  20          //  LD_ASR_ERROR:   表示一次识别流程中LD3320芯片内部出现不正确的状态
+  21          /***********************************************************************************/
+  22          uint8 idata nAsrStatus=0; 
+  23          void MCU_init(); 
+  24          void ProcessInt0(); //识别处理函数
+  25          void delay(unsigned long uldata);
+  26          void User_handle(uint8 dat);//用户执行操作函数
+  27          void Delay200ms();
+  28          void Led_test(void);//单片机工作指示
+  29          uint8_t G0_flag=DISABLE;//运行标志，ENABLE:运行。DISABLE:禁止运行 
+  30          sbit LED=P4^2;//信号指示灯
+  31          
+  32          /***********************************************************
+  33          * 名    称： void  main(void)
+  34          * 功    能： 主函数 程序入口
+  35          * 入口参数：  
+  36          * 出口参数：
+  37          * 说    明：           
+  38          * 调用方法： 
+  39          **********************************************************/ 
+  40          void  main(void)
+  41          {
+  42   1        uint8 idata nAsrRes;
+  43   1        uint8 i=0;
+  44   1        Led_test();
+  45   1        MCU_init();
+  46   1        LD_Reset();
+  47   1        UartIni(); /*串口初始化*/
+  48   1        nAsrStatus = LD_ASR_NONE;   //  初始状态：没有在作ASR
+  49   1        
+  50   1        while(1)
+  51   1        {
+  52   2          switch(nAsrStatus)
+  53   2          {
+  54   3            case LD_ASR_RUNING:
+C51 COMPILER V9.55   MAIN                                                                  05/08/2018 07:19:32 PAGE 2   
+
+  55   3            case LD_ASR_ERROR:    
+  56   3              break;
+  57   3            case LD_ASR_NONE:
+  58   3            {
+  59   4              nAsrStatus=LD_ASR_RUNING;
+  60   4              if (RunASR()==0)  /*  启动一次ASR识别流程：ASR初始化，ASR添加关键词语，启动ASR运算*/
+  61   4              {
+  62   5                nAsrStatus = LD_ASR_ERROR;
+  63   5              }
+  64   4              break;
+  65   4            }
+  66   3            case LD_ASR_FOUNDOK: /* 一次ASR识别流程结束，去取ASR识别结果*/
+  67   3            {       
+  68   4              nAsrRes = LD_GetResult();   /*获取结果*/
+  69   4              User_handle(nAsrRes);//用户执行函数 
+  70   4              nAsrStatus = LD_ASR_NONE;
+  71   4              break;
+  72   4            }
+  73   3            case LD_ASR_FOUNDZERO:
+  74   3            default:
+  75   3            {
+  76   4              nAsrStatus = LD_ASR_NONE;
+  77   4              break;
+  78   4            }
+  79   3          }// switch        
+  80   2        }// while
+  81   1      
+  82   1      }
+  83          /***********************************************************
+  84          * 名    称：   LED灯测试
+  85          * 功    能： 单片机是否工作指示
+  86          * 入口参数： 无 
+  87          * 出口参数：无
+  88          * 说    明：           
+  89          **********************************************************/
+  90          void Led_test(void)
+  91          {
+  92   1        LED=~ LED;
+  93   1        Delay200ms();
+  94   1        LED=~ LED;
+  95   1        Delay200ms();
+  96   1        LED=~ LED;
+  97   1        Delay200ms();
+  98   1        LED=~ LED;
+  99   1        Delay200ms();
+ 100   1        LED=~ LED;
+ 101   1        Delay200ms();
+ 102   1        LED=~ LED;
+ 103   1      }
+ 104          /***********************************************************
+ 105          * 名    称： void MCU_init()
+ 106          * 功    能： 单片机初始化
+ 107          * 入口参数：  
+ 108          * 出口参数：
+ 109          * 说    明：           
+ 110          * 调用方法： 
+ 111          **********************************************************/ 
+ 112          void MCU_init()
+ 113          {
+ 114   1        P0 = 0xff;
+ 115   1        P1 = 0xff;
+ 116   1        P2 = 0xff;
+C51 COMPILER V9.55   MAIN                                                                  05/08/2018 07:19:32 PAGE 3   
+
+ 117   1        P3 = 0xff;
+ 118   1        P4 = 0xff;
+ 119   1        
+ 120   1      
+ 121   1        LD_MODE = 0;    //  设置MD管脚为低，并行模式读写
+ 122   1        IE0=1;
+ 123   1        EX0=1;
+ 124   1        EA=1;
+ 125   1      }
+ 126          /***********************************************************
+ 127          * 名    称：  延时函数
+ 128          * 功    能：
+ 129          * 入口参数：  
+ 130          * 出口参数：
+ 131          * 说    明：           
+ 132          * 调用方法： 
+ 133          **********************************************************/ 
+ 134          void Delay200us()   //@22.1184MHz
+ 135          {
+ 136   1        unsigned char i, j;
+ 137   1        _nop_();
+ 138   1        _nop_();
+ 139   1        i = 5;
+ 140   1        j = 73;
+ 141   1        do
+ 142   1        {
+ 143   2          while (--j);
+ 144   2        } while (--i);
+ 145   1      }
+ 146          
+ 147          void  delay(unsigned long uldata)
+ 148          {
+ 149   1        unsigned int j  =  0;
+ 150   1        unsigned int g  =  0;
+ 151   1        while(uldata--)
+ 152   1        Delay200us();
+ 153   1      }
+ 154          
+ 155          void Delay200ms()   //@22.1184MHz
+ 156          {
+ 157   1        unsigned char i, j, k;
+ 158   1      
+ 159   1        i = 17;
+ 160   1        j = 208;
+ 161   1        k = 27;
+ 162   1        do
+ 163   1        {
+ 164   2          do
+ 165   2          {
+ 166   3            while (--k);
+ 167   3          } while (--j);
+ 168   2        } while (--i);
+ 169   1      }
+ 170          
+ 171          /***********************************************************
+ 172          * 名    称： 中断处理函数
+ 173          * 功    能：
+ 174          * 入口参数：  
+ 175          * 出口参数：
+ 176          * 说    明：           
+ 177          * 调用方法： 
+ 178          **********************************************************/ 
+C51 COMPILER V9.55   MAIN                                                                  05/08/2018 07:19:32 PAGE 4   
+
+ 179          void ExtInt0Handler(void) interrupt 0  
+ 180          {   
+ 181   1        ProcessInt0();        
+ 182   1      }
+ 183          
+ 184          /********************动作组调用函数*************************/
+ 185          void stopActionGroup()
+ 186          {
+ 187   1        volatile  uint8_t buf[6];
+ 188   1        buf[0] = 0x55 ;
+ 189   1        buf[1] = 0x55 ;
+ 190   1        buf[2] = 2 ;
+ 191   1        buf[3] = 0x07 ;
+ 192   1        buf[4] = 0X0D;
+ 193   1        buf[5] = 0x0A;  
+ 194   1        PrintCom(buf, 6) ;
+ 195   1      }
+ 196          void runActionGroup(uint8_t numofAction, uint16_t Times)
+ 197          {
+ 198   1        static volatile  uint8_t buf[9];
+ 199   1        buf[0] = 0x55 ;
+ 200   1        buf[1] = 0x55 ;
+ 201   1        buf[2] = 5 ;
+ 202   1        buf[3] = 0x06 ;
+ 203   1        buf[4] = (uint8_t)numofAction ;   
+ 204   1        buf[5] = GET_LOW_BYTE(Times) ;
+ 205   1        buf[6] = GET_HIGH_BYTE((uint16_t)Times) ;
+ 206   1        buf[7] = 0x0d;
+ 207   1        buf[8] = 0x0a;
+ 208   1        PrintCom(buf, 9) ;
+ 209   1        //PrintCom(buf,7) ;
+ 210   1        LED = !LED;
+ 211   1        Delay200ms();
+ 212   1        Delay200ms();
+ 213   1        Delay200ms();
+ 214   1      }
+ 215          
+ 216          /***********************************************************
+ 217          * 名    称：用户执行函数 
+ 218          * 功    能：识别成功后，执行动作可在此进行修改 
+ 219          * 入口参数： 无 
+ 220          * 出口参数：无
+ 221          * 说    明：           
+ 222          **********************************************************/
+ 223          void  User_handle(uint8 dat)
+ 224          {
+ 225   1         int  i=0;
+ 226   1         if(0==dat)
+ 227   1         {
+ 228   2            G0_flag=ENABLE;
+ 229   2          LED=0;
+ 230   2          PrintCom("ok\r\n",4); /*text.....*/
+ 231   2         }
+ 232   1         else if(ENABLE==G0_flag)
+ 233   1         {  
+ 234   2            G0_flag=DISABLE;
+ 235   2            LED=1;
+ 236   2            switch(dat)      /*对结果执行相关操作,客户可删除Printcom 串口输出语句替换为其他需要控制的代码*/
+ 237   2            {
+ 238   3              case CODE_STOP:     /*命令“停”*/
+ 239   3                   stopActionGroup();
+ 240   3                   break;
+C51 COMPILER V9.55   MAIN                                                                  05/08/2018 07:19:32 PAGE 5   
+
+ 241   3              case CODE_FORWARD:   /*命令“前进”*/
+ 242   3                   runActionGroup(33,1);
+ 243   3                   for (i=0;i<10;i++) Delay200ms();
+ 244   3                   runActionGroup(1,3);
+ 245   3                   break;         
+ 246   3              case CODE_BACKWARD:   /*命令“后退”*/        
+ 247   3                   runActionGroup(34,1);
+ 248   3                   for (i=0;i<10;i++) Delay200ms();
+ 249   3                   runActionGroup(2,3); 
+ 250   3                   break;
+ 251   3              case CODE_LEFTROTATE:   /*命令“左转”*/        
+ 252   3                   runActionGroup(35,1);
+ 253   3                   for (i=0;i<10;i++) Delay200ms();
+ 254   3                   runActionGroup(3,2);
+ 255   3                   break;
+ 256   3              case CODE_RIGHTROTATE:    /*命令“右转”*/        
+ 257   3                   runActionGroup(36,1);
+ 258   3                   for (i=0;i<10;i++) Delay200ms();
+ 259   3                   runActionGroup(4,2);
+ 260   3                   break;
+ 261   3              case CODE_LEFT:   /*命令“左走”*/        
+ 262   3                   runActionGroup(37,1);
+ 263   3                   for (i=0;i<10;i++) Delay200ms();
+ 264   3                   runActionGroup(7,3);
+ 265   3                   break;
+ 266   3              case CODE_RIGHT:    /*命令“右走”*/        
+ 267   3                   runActionGroup(38,1);
+ 268   3                   for (i=0;i<10;i++) Delay200ms();
+ 269   3                   runActionGroup(8,3);
+ 270   3                   break;
+ 271   3              case CODE_DANCE:      /*命令“跳个舞”*/
+ 272   3                   runActionGroup(43,1);
+ 273   3                   for (i=0;i<12;i++) Delay200ms();
+ 274   3                   runActionGroup(9,2);
+ 275   3                   break;
+ 276   3              case CODE_CANSING:   /*命令“会唱歌吗”*/
+ 277   3                   runActionGroup(44,1);
+ 278   3                   break;
+ 279   3              case CODE_APPLESING:    /*命令“唱小苹果”*/        
+ 280   3                   runActionGroup(45,1);  
+ 281   3                   for (i=0;i<13;i++) Delay200ms();
+ 282   3                   runActionGroup(92,1);
+ 283   3                   break;
+ 284   3              case CODE_COMEBACKSING:   /*命令“唱你快回来”*/        
+ 285   3                   runActionGroup(46,1); 
+ 286   3                   for (i=0;i<20;i++) Delay200ms();
+ 287   3                   runActionGroup(91,1);
+ 288   3                   break; 
+ 289   3              case CODE_TENYEARSSING:   /*命令“唱十年”*/        
+ 290   3                   runActionGroup(47,1); 
+ 291   3                   for (i=0;i<16;i++) Delay200ms();
+ 292   3                   runActionGroup(97,1);
+ 293   3                   break;   
+ 294   3              case CODE_CHINASING:    /*命令“唱一首我爱你中国”*/        
+ 295   3                   runActionGroup(48,1); 
+ 296   3                   for (i=0;i<20;i++) Delay200ms();
+ 297   3                   runActionGroup(98,1);
+ 298   3                   break;     
+ 299   3              case CODE_INTUODUCE:    /*命令“自我介绍”*/        
+ 300   3                   runActionGroup(49,1);
+ 301   3                   break; 
+ 302   3              case CODE_STANDUP:    /*命令“立正”*/        
+C51 COMPILER V9.55   MAIN                                                                  05/08/2018 07:19:32 PAGE 6   
+
+ 303   3                   runActionGroup(99,1);
+ 304   3                   break; 
+ 305   3              case CODE_NAME:   /*命令“你叫什么名字”*/        
+ 306   3                   runActionGroup(38,1);
+ 307   3                   break;   
+ 308   3              case CODE_CANDANCE:   /*命令“会跳舞吗”*/        
+ 309   3                   runActionGroup(42,1);
+ 310   3                   break; 
+ 311   3              case CODE_WEATHER:    /*命令“天气怎么样”*/        
+ 312   3                   runActionGroup(39,1);
+ 313   3                   break;
+ 314   3              case CODE_SING:   /*命令“唱一首歌”*/        
+ 315   3                   runActionGroup(98,1);
+ 316   3                   break;   
+ 317   3              default:                
+ 318   3                   runActionGroup(37,1);
+ 319   3                   break;
+ 320   3            } 
+ 321   2          } 
+ 322   1          else  
+ 323   1          {
+ 324   2            PrintCom("请说出一级口令\r\n",16); /*text.....*/  
+ 325   2          }
+ 326   1      }  
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    995    ----
+   CONSTANT SIZE    =     22    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10      18
+   IDATA SIZE       =      1       1
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

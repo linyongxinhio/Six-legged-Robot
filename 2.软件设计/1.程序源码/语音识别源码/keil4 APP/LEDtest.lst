@@ -1,0 +1,168 @@
+C51 COMPILER V9.00   LEDTEST                                                               05/29/2012 10:34:17 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE LEDTEST
+OBJECT MODULE PLACED IN ..\obj\LEDtest.obj
+COMPILER INVOKED BY: C:\Ding program file\keil\C51\BIN\C51.EXE ..\user\LEDtest.C BROWSE INCDIR(..\code;..\user) DEBUG OB
+                    -JECTEXTEND PRINT(.\LEDtest.lst) TABS(2) OBJECT(..\obj\LEDtest.obj)
+
+line level    source
+
+   1          /************************************************************************************
+   2          **  CPU: STC89LE52
+   3          **  晶振：22.1184MHZ
+   4          **  波特率：9600 bit/S
+   5          **  配套产品信息：LD3320 非特定语音模块 开发板
+   6          **                http://yuesheng001.taobao.com
+   7          **  作者：zdings
+   8          **  修改日期：2012.4.1
+   9          /************************************************************************************/
+  10          #include "config.h"
+  11          
+  12          //端口定义
+  13          #define  LED  P4
+  14          sbit LED1=P4^0; 
+  15          sbit LED2=P4^1;
+  16          sbit LED3=P4^2;
+  17          
+  18          sbit KEY1=P2^2;
+  19          sbit KEY2=P2^3;
+  20          sbit KEY3=P2^4;
+  21          /***********************************************************
+  22          * 名    称：void Delayms(uint16 i)
+  23          * 功    能： 延时n毫秒
+  24          * 入口参数：  
+  25          * 出口参数：
+  26          * 说    明：           
+  27          * 调用方法： Delayms(1000)； //延时1S
+  28          **********************************************************/ 
+  29          void Delayms(uint16 i)
+  30          {
+  31   1        unsigned char a,b;
+  32   1        for(;i>0;i--)
+  33   1                for(b=4;b>0;b--)
+  34   1                    for(a=113;a>0;a--); 
+  35   1      
+  36   1      }
+  37          
+  38          /***********************************************************
+  39          * 名    称：void Glide_LED(void)
+  40          * 功    能： 实现流水灯功能
+  41          * 入口参数：  
+  42          * 出口参数：
+  43          * 说    明：           
+  44          * 调用方法： 
+  45          **********************************************************/ 
+  46          void Glide_LED(void)
+  47          {
+  48   1        LED=0X06;
+  49   1        Delayms(300);   
+  50   1        LED=0X05;
+  51   1        Delayms(300);
+  52   1        LED=0X03;
+  53   1        Delayms(300);
+  54   1        LED=0X07;
+C51 COMPILER V9.00   LEDTEST                                                               05/29/2012 10:34:17 PAGE 2   
+
+  55   1        Delayms(300);   
+  56   1        LED=0X03;
+  57   1        Delayms(300);
+  58   1        LED=0X05;
+  59   1        Delayms(300);
+  60   1      }
+  61          
+  62          /***********************************************************
+  63          * 名    称： void Flicker_LED(void)
+  64          * 功    能：  实现灯闪烁功能
+  65          * 入口参数：  
+  66          * 出口参数：
+  67          * 说    明：           
+  68          * 调用方法： 
+  69          **********************************************************/ 
+  70          void Flicker_LED(void)
+  71          {
+  72   1        LED=0X00;
+  73   1        Delayms(300);
+  74   1        LED=0X07;
+  75   1        Delayms(300);
+  76   1      }
+  77          
+  78          /***********************************************************
+  79          * 名    称： void Key_LED(void)
+  80          * 功    能： 按键触发LED显示
+  81          * 入口参数：  
+  82          * 出口参数：
+  83          * 说    明： 独立按键点亮独立LED           
+  84          * 调用方法： 
+  85          **********************************************************/ 
+  86          void Key_LED(void)
+  87          {
+  88   1        if(KEY1==0)
+  89   1        {
+  90   2          Delayms(20);
+  91   2          while(KEY1!=0); 
+  92   2          LED1=~LED1; 
+  93   2        }
+  94   1        
+  95   1      
+  96   1      }
+  97          
+  98          
+  99          /***********************************************************
+ 100          * 名    称：void Off_LED(void)
+ 101          * 功    能：  关闭全部LED
+ 102          * 入口参数：  
+ 103          * 出口参数：
+ 104          * 说    明：           
+ 105          * 调用方法： 
+ 106          **********************************************************/ 
+ 107          void Off_LED(void)
+ 108          {
+ 109   1        LED=0X07;
+ 110   1      }
+ 111          
+ 112          /***********************************************************
+ 113          * 名    称：void Board_text(uint8 Code_Val)
+ 114          * 功    能：  开发板测试程序
+ 115          * 入口参数：  
+ 116          * 出口参数：
+C51 COMPILER V9.00   LEDTEST                                                               05/29/2012 10:34:17 PAGE 3   
+
+ 117          * 说    明：           
+ 118          * 调用方法： 
+ 119          **********************************************************/ 
+ 120          void Board_text(uint8 Code_Val)
+ 121          {                                          
+ 122   1         switch(Code_Val)      /*对结果执行相关操作,客户修改*/
+ 123   1              {
+ 124   2                case CODE_LSD:      /*命令“流水灯”*/
+ 125   2                              Glide_LED();
+ 126   2                                 break;
+ 127   2                case CODE_SS:  /*命令“闪烁”*/
+ 128   2                              Flicker_LED();
+ 129   2                                 break;
+ 130   2                case CODE_AJCF:   /*命令“按键触发”*/
+ 131   2                              Key_LED();
+ 132   2                                break;
+ 133   2                case CODE_QM:   /*命令“全灭”*/
+ 134   2                              Off_LED();
+ 135   2                                break;
+ 136   2                default:break;
+ 137   2              } 
+ 138   1      
+ 139   1      
+ 140   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    131    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,45 @@
+Designator Footprint               Mid X         Mid Y         Ref X         Ref Y         Pad X         Pad Y TB      Rotation Comment        
+
+U1         STM32F103VET6     3710.701mil   3038.213mil   3712.599mil    3039.37mil   3413.457mil   3274.434mil  T          0.00 STM32F103VET6  
+SPI2       4Pin                  5009mil       4348mil       5009mil       4198mil       5009mil       4198mil  T         90.00 4Pin           
+C4         0603P             4012.968mil    4181.75mil   4012.936mil     4181.5mil   4012.936mil     4154.5mil  T         90.00 104            
+C5         CC6.56.5          3822.835mil   4035.275mil   3822.835mil   4035.157mil   3822.835mil   3925.157mil  T         90.00 220uF          
+C6         0603P              3460.25mil   3727.968mil       3460mil       3728mil       3433mil       3728mil  T        360.00 104            
+U2         AMS1117           3440.945mil   4057.165mil   3340.913mil   3937.228mil   3340.945mil   3937.164mil  T          0.00 AMS1117-3.3    
+IIC4       4Pin                  5011mil       3371mil       5011mil       3521mil       5011mil       3521mil  T        270.00 4Pin           
+IIC5       4Pin                  5009mil       3859mil       5009mil       4009mil       5009mil       4009mil  T        270.00 4Pin           
+IIC6       4Pin                  2383mil       4330mil       2383mil       4180mil       2383mil       4180mil  T         90.00 4Pin           
+L1         LED-0805           2383.26mil   4915.685mil       2417mil       4916mil   2420.661mil   4915.685mil  T        180.00 LED-0805       
+L2         LED-0805           2383.26mil   4694.685mil       2417mil       4695mil   2420.661mil   4694.685mil  T        180.00 LED-0805       
+L3         LED-0805          4998.402mil   4953.876mil   4964.661mil   4953.561mil       4961mil   4953.876mil  T        360.00 LED-0805       
+L4         LED-0805          4998.402mil   4731.315mil   4964.661mil       4731mil       4961mil   4731.315mil  T        360.00 LED-0805       
+SPI1       4Pin                  2383mil   3769.072mil       2383mil   3619.072mil       2383mil   3619.072mil  T         90.00 4Pin           
+IIC2       4Pin                  2383mil   2647.216mil       2383mil   2797.216mil       2383mil   2797.216mil  T        270.00 4Pin           
+IIC3       4Pin                  2383mil   1453.361mil       2383mil   1303.361mil       2383mil   1303.361mil  T         90.00 4Pin           
+USART2     HDR1X5                2383mil   2064.289mil       2383mil   1864.289mil       2383mil   1864.289mil  T         90.00 5pin           
+USART5     4Pin                  2383mil   3208.144mil       2383mil   3058.144mil       2383mil   3058.144mil  T         90.00 4Pin           
+ST-LINK    4Pin                  2383mil    892.433mil       2383mil    742.433mil       2383mil    742.433mil  T         90.00 4Pin           
+USART3     HDR1X6            5011.811mil   2098.032mil   5011.811mil   1848.032mil   5011.811mil   1848.032mil  T         90.00 6pin           
+3.3V       HDR2X3            5060.236mil   1182.677mil   5110.236mil   1082.677mil   5110.236mil   1082.677mil  T         90.00 VCC3.3         
+5V         HDR2X3                5058mil       1542mil       5108mil       1442mil       5108mil       1442mil  T         90.00 5V             
+K1         KEY-tie           5051.748mil    805.047mil   5055.118mil    807.087mil   5051.748mil    651.504mil  T         90.00 KEY            
+D1         SMBJ              4751.968mil   1350.158mil   4751.968mil   1355.158mil   4751.968mil   1460.158mil  T        270.00 SMBJ5.0A       
+C1         Cap-0603              3115mil   3217.465mil   3115.189mil   3251.425mil       3115mil       3184mil  T         90.00 20pF           
+C2         Cap-0603              3112mil   2958.535mil   3112.189mil   2992.496mil       3112mil   2925.071mil  T         90.00 20pF           
+C7         Cap-0603          4020.811mil   3958.535mil       4021mil   3992.496mil   4020.811mil   3925.071mil  T         90.00 0.1u           
+R2         RES-0603          3594.811mil   3498.913mil       3595mil       3528mil   3594.811mil   3465.449mil  T         90.00 1K             
+R3         RES-0603          2702.086mil   4716.811mil       2673mil       4717mil   2735.551mil   4716.811mil  T        180.00 1K             
+R4         RES-0603          2703.535mil       4525mil   2674.449mil   4525.189mil       2737mil       4525mil  T        180.00 1K             
+R5         RES-0603          4715.913mil   4727.189mil       4745mil       4727mil   4682.449mil   4727.189mil  T        360.00 1K             
+R6         RES-0603          4718.913mil   4530.189mil       4748mil       4530mil   4685.449mil   4530.189mil  T          0.00 1K             
+C8         Cap-0603          4136.541mil   3958.535mil    4136.73mil   3992.496mil   4136.541mil   3925.071mil  T         90.00 0.1u           
+C9         Cap-0603              4282mil   3958.535mil   4282.189mil   3992.496mil       4282mil   3925.071mil  T         90.00 0.1u           
+C10        Cap-0603          4389.811mil   3961.039mil       4390mil       3995mil   4389.811mil   3927.575mil  T         90.00 0.1u           
+X1         XTAL-tie          2974.512mil   3071.039mil       2959mil       3076mil   2929.236mil   2996.236mil  T         90.00 XTAL           
+D2         SMBJ                  4745mil       1743mil       4745mil       1748mil       4745mil       1853mil  T        270.00 SMBJ5.0A       
+C3         Cap-0603          4610.236mil   1005.905mil   4610.047mil    971.945mil   4610.236mil    1039.37mil  T        270.00 0.1u           
+R1         RES-0603          4751.779mil   1006.346mil   4751.968mil   1035.433mil   4751.779mil    972.882mil  T         90.00 1K             
+USART4     4Pin              3698.032mil   2318.898mil   3548.032mil   2318.898mil   3548.032mil   2318.898mil  T          0.00 4Pin           
+IIC1       HDR1X6            5011.811mil   2760.236mil   5011.811mil   2510.236mil   5011.811mil   2510.236mil  T         90.00 6pin           
+USART1     4Pin                  3921mil       3724mil       4071mil       3724mil       4071mil       3724mil  B        180.00 4Pin           
+

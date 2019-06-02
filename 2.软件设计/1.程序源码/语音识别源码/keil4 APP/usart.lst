@@ -1,0 +1,86 @@
+C51 COMPILER V9.55   USART                                                                 05/08/2018 07:03:49 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE USART
+OBJECT MODULE PLACED IN ..\obj\usart.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\user\usart.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\code;..\user) DEBUG O
+                    -BJECTEXTEND PRINT(.\usart.lst) TABS(2) OBJECT(..\obj\usart.obj)
+
+line level    source
+
+   1          /***************************飞音云电子****************************
+   2          **  工程名称：YS-V0.7语音识别模块驱动程序
+   3          **  CPU: STC11L08XE
+   4          **  晶振：22.1184MHZ
+   5          **  波特率：9600 bit/S
+   6          **  配套产品信息：YS-V0.7语音识别开发板
+   7          **                http://yuesheng001.taobao.com
+   8          **  作者：zdings
+   9          **  联系：751956552@qq.com
+  10          **  修改日期：2013.9.13
+  11          **  说明：口令模式： 即每次识别时都需要说“小杰”这个口令 ，才能够进行下一级的识别
+  12          /***************************飞音云电子******************************/
+  13          #include "config.h"
+  14          #define FOSC 22118400L      //System frequency
+  15          uint32_t baud=9600;           //UART baudrate
+  16          /************************************************************************
+  17          函 数 名： 串口初始化
+  18          功能描述： STC10L08XE 单片机串口初始化函数
+  19          返回函数： none
+  20          其他说明： none
+  21          **************************************************************************/
+  22          void UartIni(void)
+  23          {
+  24   1          SCON = 0x50;            //8-bit variable UART
+  25   1          TMOD = 0x20;            //Set Timer1 as 8-bit auto reload mode
+  26   1          TH1 = TL1 = -(FOSC/12/32/baud); //Set auto-reload vaule
+  27   1          TR1 = 1;                //Timer1 start run
+  28   1          ES = 1;                 //Enable UART interrupt
+  29   1          EA = 1;                 //Open master interrupt switch
+  30   1      }
+  31          /************************************************************************
+  32          功能描述：  串口发送一字节数据
+  33          入口参数：  DAT:带发送的数据
+  34          返 回 值：  none
+  35          其他说明：  none
+  36          **************************************************************************/
+  37          void UARTSendByte(uint8_t DAT)
+  38          {
+  39   1        ES  =  0;
+  40   1        TI=0;
+  41   1        SBUF = DAT;
+  42   1        while(TI==0);
+  43   1        TI=0;
+  44   1        ES = 1;
+  45   1      }
+  46          /************************************************************************
+  47          功能描述： 串口发送字符串数据
+  48          入口参数：  *DAT：字符串指针
+  49          返 回 值： none
+  50          其他说明： API 供外部使用，直观！
+  51          **************************************************************************/
+  52          void PrintCom(uint8_t *DAT,uint8_t len)
+  53          {
+  54   1        uint8_t i;
+C51 COMPILER V9.55   USART                                                                 05/08/2018 07:03:49 PAGE 2   
+
+  55   1        for(i=0;i<len;i++)
+  56   1        {
+  57   2          UARTSendByte(*DAT++);
+  58   2        }
+  59   1      }
+  60          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     91    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,7 @@
+".\LDChip.obj",
+".\main.obj",
+".\Reg_RW.obj",
+".\LEDtest.obj",
+".\usart.obj" 
+TO "YS-V0.3" 
+RAMSIZE(256) 
